@@ -9,3 +9,5 @@ node_modules/
 *.ts
 *.tsx
 dist/
+README.md
+readme.png
