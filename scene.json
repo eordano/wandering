@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": "The Wanderer"
+  },
+  "owner": "0x8c0928CF8CDdd28BC01d0C9b662d7092253B8574",
+  "contact": {
+    "name": "Esteban",
+    "email": "esteban@decentraland.org"
+  },
+  "scene": {
+    "parcels": [
+      "2,12","3,12"
+    ],
+    "base": "2,12"
+  },
+  "communications": {
+    "type": "webrtc",
+    "signalling": "https://rendezvous.decentraland.org"
+  },
+  "policy": {
+    "fly": true,
+    "voiceEnabled": true,
+    "blacklist": [],
+    "teleportPosition": "0,0,0"
+  },
+  "main": "scene.js"
+}
