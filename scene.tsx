@@ -1,10 +1,17 @@
 import { createElement, Component } from 'metaverse-api'
 
+import { Elevator } from './components'
+
 const networkHz = 60
 const interval = 1000 / networkHz
 
-export default class RollerCoaster extends Component<any, { time: number }> {
-  state = { time: 0 }
+interface TimeState {
+  time: number
+  startTime: number
+}
+
+export default class RollerCoaster extends Component<any, TimeState> {
+  state = { time: 0, startTime: performance.now() / 10000 }
 
   timeout = setInterval(() => {
     this.setState({
@@ -17,21 +24,10 @@ export default class RollerCoaster extends Component<any, { time: number }> {
   }
 
   async render() {
-    const { time } = this.state
-
-    const speed = 8
-    const height = 12
-    const offset = speed
-
-    const y = (Math.cos(time * speed + offset) + 1) * height
-
     return (
       <a-scene>
         <a-entity position={{ x: 5, y: 0, z: 5 }}>
-          <a-box
-              position={{ x: 5, y, z: 0 }}
-              scale={{ x: 5, y: 0.05, z: 5 }}
-          />
+          <Elevator {...this.state} active={false} bottom={false} height={24} speed={8} />
           <a-box
               position={{ x: 0, y: 24.1, z: 0 }}
               scale={{ x: 5, y: 0.1, z: 5 }}
