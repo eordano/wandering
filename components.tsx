@@ -3,6 +3,7 @@ import { createElement } from 'metaverse-api'
 interface ElevatorOpts {
   active: boolean
   bottom: boolean
+  oneTime: boolean
   startTime: number
   time: number
   height: number
@@ -10,19 +11,15 @@ interface ElevatorOpts {
 }
 
 export const Elevator = (opts: ElevatorOpts) => {
-  const { bottom, time, height, speed, active, startTime } = opts
+  const { bottom, time, height, oneTime, speed, active, startTime } = opts
+  const pos = (time - startTime) * speed
   const y = active
-    ? (Math.cos(
-      (time - startTime) * speed + (bottom ? 0.5 : 1.5) * Math.PI
-    ) + 1) / 2 * height
+    ? (Math.sin(                                         // cosine movement
+        Math.min((oneTime ? Math.PI : pos), pos) // position 0...pos (or 3/4 movement
+        + (bottom ? -0.5 : 0.5) * Math.PI                 // offset  1/4 movement
+      ) + 1) / 2 * height
     : (bottom ? 0 : height)
 
-  return (<a-entity>
-      <a-box
-        position={{ x: 5, y, z: 0 }}
-        scale={{ x: 5, y: 0.05, z: 5 }}
-      />
-    </a-entity>
-  )
+  return <a-box position={{ x: 5, y, z: 0 }} scale={{ x: 5, y: 0.05, z: 5 }} />
 }
 
